@@ -38,11 +38,15 @@ jobs:
       run: |
         mvn -B install ${MAVEN_TEST_PARAMS} ${MAVEN_BUILD_EXTRA_PARAMS} 
         echo "build done"
-        # Comment this to skip running the tests
-        mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
+        
     # Uncomment to enable debugging
     #- name: Set up TMate for SSH debugging
     #  uses: mxschmitt/action-tmate@v2
+      
+    # Uncomment to run test
+    #- name: Run Test
+    #  run: mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
+      
     - name: Run multi-repo-ci-tool '{}' command
       if: ${{ failure() }}
       run: |
