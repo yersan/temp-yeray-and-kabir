@@ -46,8 +46,8 @@ jobs:
     #  uses: mxschmitt/action-tmate@v2
       
     # Uncomment to run test
-    #- name: Run Test
-    #  run: mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
+    - name: Run Test
+      run: mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
       
     - name: Run multi-repo-ci-tool '{}' command
       if: ${{ failure() }}
