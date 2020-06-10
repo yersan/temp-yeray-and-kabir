@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         # Your repo here
-        repository: kabir/wildfly-core
+        repository: yersan/wildfly-core
         # Your branch here
         ref: gh-action-fixes
     - uses: actions/checkout@v2
@@ -40,8 +40,8 @@ jobs:
         echo "build done"
         
     # Uncomment to enable debugging
-    - name: Set up TMate for SSH debugging
-      uses: mxschmitt/action-tmate@v2
+    #- name: Set up TMate for SSH debugging
+    #  uses: mxschmitt/action-tmate@v2
       
     # Uncomment to run test
     #- name: Run Test
