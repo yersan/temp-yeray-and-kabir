@@ -45,11 +45,25 @@ jobs:
       
     # Uncomment to run test
     - name: Run Test
-      run: mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
-      
+      #run: mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
+      run: |
+        i=1
+        while mvn clean test -Denforcer.skip=true \
+        -Dcheckstyle.skip=true \
+        -Dmaven.buildNumber.skip=true \
+        -Dassembly.skipAssembly=false \
+        -Dproject.src.skip=true \
+        -Dtest=OperationCancellationTestCase \
+        -DtestLogToFile=false \
+        > /tmp/core-test.log; do
+        echo "Run $((i++)) finished with success"
+        done
+        echo "Failed - check the /tmp/core-test.log"
+
     - name: Run multi-repo-ci-tool '{}' command
       run: |
         java -jar .ci-tools/multi-repo-ci-tool.jar copy-logs . .project-build-logs/wildfly-core-build
+        cp /tmp/core-test.log .project-build-logs/wildfly-core-build
     - run: |
         cd .project-build-logs
         zip -r wildfly-core-build.zip wildfly-core-build
