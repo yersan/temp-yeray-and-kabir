@@ -61,7 +61,10 @@ jobs:
         -Dtest=OperationCancellationTestCase \
         -DtestLogToFile=false \
         >> /tmp/core-test.log; do
-        echo "Run $((i++)) finished with success"
+            echo "Run $((i++)) finished with success"
+            if [ $i -gt 15 ]; then
+              break
+            fi
         done
         echo "Failed - check the /tmp/core-test.log"
 
