@@ -20,7 +20,7 @@ jobs:
         # Your repo here
         repository: yersan/wildfly-core
         # Your branch here
-        ref: gh-action-fixes
+        ref: WFCORE-2086
     - uses: actions/checkout@v2
       with:
         path: .ci-tools
