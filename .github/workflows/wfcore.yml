@@ -56,7 +56,7 @@ jobs:
         -Dproject.src.skip=true \
         -Dtest=OperationCancellationTestCase \
         -DtestLogToFile=false \
-        > /tmp/core-test.log; do
+        >> /tmp/core-test.log; do
         echo "Run $((i++)) finished with success"
         done
         echo "Failed - check the /tmp/core-test.log"
