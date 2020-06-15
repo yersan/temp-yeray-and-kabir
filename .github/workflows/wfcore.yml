@@ -48,7 +48,7 @@ jobs:
       #run: mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
       run: |
         i=1
-        while mvn clean test -Denforcer.skip=true \
+        while mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Denforcer.skip=true \
         -Dcheckstyle.skip=true \
         -Dmaven.buildNumber.skip=true \
         -Dassembly.skipAssembly=false \
