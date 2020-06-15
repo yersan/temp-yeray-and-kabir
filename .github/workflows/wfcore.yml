@@ -48,16 +48,13 @@ jobs:
       run: mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Dtest=OperationCancellationTestCase
       
     - name: Run multi-repo-ci-tool '{}' command
-      if: ${{ failure() }}
       run: |
         java -jar .ci-tools/multi-repo-ci-tool.jar copy-logs . .project-build-logs/wildfly-core-build
-    - if: ${{ failure() }}
-      run: |
+    - run: |
         cd .project-build-logs
         zip -r wildfly-core-build.zip wildfly-core-build
         rm -rf wildfly-core-build
     - uses: actions/upload-artifact@v2
-      if: ${{ failure() }}
       with:
         name: wildfly_core_only-logs-20200605-141836
         path: .project-build-logs
