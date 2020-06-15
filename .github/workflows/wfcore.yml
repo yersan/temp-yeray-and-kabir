@@ -39,6 +39,7 @@ jobs:
         mvn -B install ${MAVEN_TEST_PARAMS} ${MAVEN_BUILD_EXTRA_PARAMS} 
         echo "build done"
 
+
     # Uncomment to enable debugging
     #- name: Set up TMate for SSH debugging
     #  uses: mxschmitt/action-tmate@v2
