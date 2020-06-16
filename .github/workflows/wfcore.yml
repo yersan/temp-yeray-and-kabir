@@ -53,6 +53,8 @@ jobs:
 
 
 
+
+
     # Uncomment to enable debugging
     #- name: Set up TMate for SSH debugging
     #  uses: mxschmitt/action-tmate@v2
@@ -67,7 +69,7 @@ jobs:
         -DtestLogToFile=false \
         >> /tmp/core-test.log; do
             echo "Run $((i++)) finished with success"
-            if [ $i -gt 15 ]; then
+            if [ $i -gt 30 ]; then
               break
             fi
         done
