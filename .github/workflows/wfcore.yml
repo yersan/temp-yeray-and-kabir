@@ -14,7 +14,7 @@ jobs:
         -Dci-cleanup=true -fae
       MAVEN_TEST_PARAMS: -DfailIfNoTests=false -Dipv6 -Djboss.test.transformers.eap
         -Dci-cleanup=true -fae -DallTests
-      MAVEN_BUILD_EXTRA_PARAMS: -DlegacyBuild -DlegacyRelease -DskipTests
+      MAVEN_BUILD_EXTRA_PARAMS: -DskipTests -Denforcer.skip=true -Dcheckstyle.skip=true -Dmaven.buildNumber.skip=true -Dassembly.skipAssembly=false -Dproject.src.skip=true
     steps:
     - uses: actions/checkout@v2
       with:
@@ -51,6 +51,8 @@ jobs:
 
 
 
+
+
     # Uncomment to enable debugging
     #- name: Set up TMate for SSH debugging
     #  uses: mxschmitt/action-tmate@v2
@@ -61,10 +63,6 @@ jobs:
       run: |
         i=1
         while mvn install ${MAVEN_TEST_PARAMS} -pl testsuite/domain -Denforcer.skip=true \
-        -Dcheckstyle.skip=true \
-        -Dmaven.buildNumber.skip=true \
-        -Dassembly.skipAssembly=false \
-        -Dproject.src.skip=true \
         -Dtest=OperationCancellationTestCase \
         -DtestLogToFile=false \
         >> /tmp/core-test.log; do
