@@ -4,6 +4,7 @@ name: WildFly Core Only
     branches: [master]
 env:
   MAVEN_OPTS: -Xmx1g -Xmx1g
+  JBOSS_THREADS_VERSION: 2.3.3.Final-SNAPSHOT
 jobs:
   wildfly-core-build:
     name: wildfly-core-build
@@ -24,6 +25,11 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: .ci-tools
+    - uses: actions/checkout@v2
+      with:
+        repository: yersan/jboss-threads
+        ref: 2.3.3.Final-test
+        path: .jboss-threads
     - uses: actions/cache@v1
       with:
         path: ~/.m2/repository
@@ -31,12 +37,16 @@ jobs:
         restore-keys: ${{ runner.os }}-maven-
     - uses: actions/setup-java@v1
       with:
-        java-version: '11'
+        java-version: '8'
     - name: Add '::1 localhost' to hosts file
       run: sudo bash -c 'echo ::1 localhost >> /etc/hosts'
+    - name: Build JBoss Threads
+      run: |
+        cd .jboss-threads
+        mvn -B install -DskipTests
     - name: Maven Build
       run: |
-        mvn -B install ${MAVEN_TEST_PARAMS} ${MAVEN_BUILD_EXTRA_PARAMS} 
+        mvn -B install ${MAVEN_TEST_PARAMS} ${MAVEN_BUILD_EXTRA_PARAMS} -Dversion.org.jboss.threads=${JBOSS_THREADS_VERSION}
         echo "build done"
 
 
